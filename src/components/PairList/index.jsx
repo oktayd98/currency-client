@@ -1,9 +1,20 @@
-import useFetch from '@/hooks/useFetch';
+import { PairContext } from '@/context/pair';
+import request from '@/utils/request';
+import { useContext } from 'react';
 import PairListHead from '../PairListHead';
 import PairListItem from '../PairListItem';
 
 const PairList = () => {
-  const { data = [], isLoading, isError } = useFetch({ url: '/conversation_pairs' });
+  const { pairs, setPairs } = useContext(PairContext);
+
+  const deletePair = async (id) => {
+    try {
+      await request(`/conversation_pairs/${id}`, { method: 'delete' });
+      setPairs(pairs.filter((pair) => pair.id !== id));
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   return (
     <>
@@ -12,8 +23,8 @@ const PairList = () => {
           <PairListHead />
         </thead>
         <tbody>
-          {data.map((pair) => (
-            <PairListItem key={pair.id} pair={pair} />
+          {pairs.map((pair) => (
+            <PairListItem key={pair.id} pair={pair} onDeleteClick={deletePair} />
           ))}
         </tbody>
       </table>
