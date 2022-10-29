@@ -44,12 +44,12 @@ const PairForm = () => {
 
   return (
     <form
-      className="flex items-center gap-3 bg-white shadow-lg p-4 rounded-md sticky top-1"
+      className="flex items-center gap-3 bg-white shadow-lg p-4 rounded-md sticky top-1 w-full"
       onSubmit={submit}
     >
       <Select
         name="base_id"
-        className="w-32 min-w-[8rem]"
+        className="flex-1"
         options={currencies}
         isClearable={true}
         isSearchable={true}
@@ -59,7 +59,7 @@ const PairForm = () => {
       />
       <Select
         name="target_id"
-        className="w-32 min-w-[8rem]"
+        className="flex-1"
         options={currencies}
         isClearable={true}
         isSearchable={true}
@@ -67,7 +67,9 @@ const PairForm = () => {
         onChange={(value) => setForm({ ...form, target_id: value })}
         value={form.target_id}
       />
-      <Button disabled={loading}>Kaydet</Button>
+      <Button className="flex-grow-0" disabled={loading}>
+        Kaydet
+      </Button>
     </form>
   );
 };
