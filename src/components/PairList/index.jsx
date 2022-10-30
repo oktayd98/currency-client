@@ -1,5 +1,6 @@
 import { PairContext } from '@/context/pair';
 import request from '@/utils/request';
+import { ActionCableConsumer } from '@thrash-industries/react-actioncable-provider';
 import { useContext } from 'react';
 import PairListHead from '../PairListHead';
 import PairListItem from '../PairListItem';
@@ -16,6 +17,11 @@ const PairList = () => {
     }
   };
 
+  const handleReceived = (message) => {
+    const res = JSON.parse(message);
+    setPairs(res.data);
+  };
+
   return (
     <>
       <table className="table-auto">
@@ -28,6 +34,7 @@ const PairList = () => {
           ))}
         </tbody>
       </table>
+      <ActionCableConsumer channel="RatesChannel" onReceived={handleReceived} />
     </>
   );
 };
