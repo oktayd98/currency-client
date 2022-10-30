@@ -68,7 +68,7 @@ const PairForm = () => {
         value={form.target_id}
       />
       <Button className="flex-grow-0" disabled={loading}>
-        Kaydet
+        Save
       </Button>
     </form>
   );
